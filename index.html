@@ -1,11 +1,39 @@
 <html>
 <head>
+  <style type="text/css" media="screen">
+    body {
+      padding: 50px;
+      background: #2C2C29;
+      text-align: center;
+      font-family:Helvetica, Arial;
+      color:#FFFFFF;
+    }
+    
+    img {
+      background-color: #FFFFFF;
+      border: 5px solid #39414A;
+    }
+    
+    #divFloat {
+      background-color: #FFFFFF;
+      border-right: 5px solid #39414A;
+      border-top: 5px solid #39414A;
+      border-bottom: 5px solid #39414A;
+    }
+    
+    #title {
+      font-size:48px;
+    }
+    
+    #summary {
+      font-size:16px;
+      font-style:italic;
+    }
+  </style>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" charset="utf-8"></script>
-    <script type="text/javascript" charset="utf-8">
-      function NewImage() {
-        $("#images").append("<img src='http://www.fukung.net/images/random.jpg' />");
-      }
-      (function($){
+  
+    <script type="text/javascript" charset="utf-8">      
+      (function($){ß
 
       	$.fn.endlessScroll = function(options){
 
@@ -90,6 +118,7 @@
       	};
 
       })(jQuery);
+      
       $(document).endlessScroll({
         fireOnce : false,
         fireDelay : 750,
@@ -97,16 +126,23 @@
         callback : function() {
           $('#images').append("<img src='http://www.fukung.net/images/random.jpg' /><br /> <br />");
         }
-      })
+      });
       
       function Starter() {
-        for (i = 0; i < 15; i++) {
-            $('#images').append("<img src='http://www.fukung.net/images/random.jpg' /><br /> <br />");
-        }
-      }
+        if($(window).scrollTop() < $(document).height() - $(window).height()) {
+          $('#images').append("<img src='http://www.fukung.net/images/random.jpg' /><br /> <br />");
+          setTimeout(Starter(), 2500);
+      }      
+      
+      $(doucment).ready(function () {
+        Starter();
+      });
   </script>
   </head>
-  <body onload="Starter();">
-    <div id="images"></div>
+  <body>
+    <div id="title">Fukung Forever</div>
+    <div id="summary">Welcome to the site you will never leave...</div>
+    <div id="images">     
+    </div>
     </body>
     </html>
