@@ -33,7 +33,7 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" charset="utf-8"></script>
   
     <script type="text/javascript" charset="utf-8">      
-      (function($){ß
+      (function($){
 
       	$.fn.endlessScroll = function(options){
 
@@ -118,23 +118,28 @@
       	};
 
       })(jQuery);
+    
       
       $(document).endlessScroll({
-        fireOnce : false,
-        fireDelay : 750,
         loader : "<br />Loading...</br />",
         callback : function() {
-          $('#images').append("<img src='http://www.fukung.net/images/random.jpg' /><br /> <br />");
+          $('#images').append("<img src='http://www.fukung.net/images/random.jpg' /><br /> <br />").fadeTo(1500, 1);
         }
       });
       
+      var wrapper = 0;
       function Starter() {
-        if($(window).scrollTop() < $(document).height() - $(window).height()) {
+        if(wrapper < 10) {
           $('#images').append("<img src='http://www.fukung.net/images/random.jpg' /><br /> <br />");
-          setTimeout(Starter(), 2500);
+          wrapper++;
+          setTimeout(function() {
+            Starter();
+          },
+          750);
+        }
       }      
       
-      $(doucment).ready(function () {
+      $(document).ready(function () {
         Starter();
       });
   </script>
