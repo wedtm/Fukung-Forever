@@ -1,5 +1,7 @@
 %html
   %head
+    %title
+      We regret to inform you, you will never leave this site...
     %style{ :type => "text/css", :media => "screen" }
       body {
       padding: 50px;
@@ -23,6 +25,11 @@
       
       \.next {
       display:hidden;
+      }
+      
+      \.tagslist {
+      font-size:10px;
+      font-style:italic;
       }
       
       \#title {
@@ -138,10 +145,18 @@
       })(jQuery);           
       var wrapper = 0;
       
+      function GenTags(data) {
+      var delta = "";
+      for(var i in data) {
+      delta += "<span class='tag'>" + data[i] + "</span>"
+      }
+      return delta;
+      }
+      
       function Starter() {
       if ($(document).height() - $(window).height() <= $(window).scrollTop() + 100) {
       $.getJSON("new-image", function(data) {
-      $('#images').append("<img src='" + data.url + "' /><br /><br />");
+      $('#images').append("<img class='next' src='" + data.url + "' /><br /><div class='tagslist'>" + GenTags(data.tags) + "</div><br />");
       });
       wrapper++;
       setTimeout(function() {
@@ -155,7 +170,8 @@
       callback : function() {
       $('#images .next').removeClass('next');
       $.getJSON("new-image", function(data) {
-      $('#images').append("<img class='next' src='" + data.url + "' /><br /><br />");
+      var tags = GenTags(data.tags);
+      $('#images').append("<img class='next' src='" + data.url + "' /><br /><div class='tagslist'>" + GenTags(data.tags) + "</div><br />");
       setImage();
       });
       }
